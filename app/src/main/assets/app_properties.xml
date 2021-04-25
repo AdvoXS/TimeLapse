@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Configuration settings for TimeLapse app</comment>
+    <entry key="site.root.path">http://192.168.0.103:8083</entry>
+</properties>
