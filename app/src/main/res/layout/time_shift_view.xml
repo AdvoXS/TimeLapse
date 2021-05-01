@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/time_shift_date_text"
+        android:layout_width="295dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="600dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="31 декабря 2021"
+        android:textAlignment="center"
+        android:textColor="#3F51B5"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/time_shift_time_end"
+        android:layout_width="117dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="80dp"
+        android:fontFamily="sans-serif-black"
+        android:text="17:00"
+        android:textAlignment="textStart"
+        android:textColor="#009688"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_shift_notification_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_type_day"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <TextView
+        android:id="@+id/time_shift_type_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="146dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Рабочий день"
+        android:textColor="#03A9F4"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_shift_notification_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_date_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/time_shift_time_start"
+        android:layout_width="98dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="8:00"
+        android:textAlignment="textEnd"
+        android:textColor="#009688"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_shift_edit_image"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_type_day"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="30dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="7dp"
+        android:text="—"
+        android:textColor="#009688"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/time_shift_time_end"
+        app:layout_constraintStart_toEndOf="@+id/time_shift_time_start"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_type_day"
+        app:layout_constraintVertical_bias="0.022" />
+
+    <ImageView
+        android:id="@+id/time_shift_edit_image"
+        android:layout_width="75dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/time_shift_notification_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageView
+        android:id="@+id/time_shift_notification_image"
+        android:layout_width="72dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/time_shift_edit_image"
+        app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.timelapse.rest.request;
 
-import com.example.timelapse.rest.object.template.TimeTable;
+import com.example.timelapse.object.template.TimeTable;
+import com.example.timelapse.rest.request.core.GetRequest;
 
 public class TimeTablesRequestGet extends GetRequest<TimeTable[]> {
 

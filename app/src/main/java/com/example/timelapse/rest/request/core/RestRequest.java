@@ -1,7 +1,6 @@
-package com.example.timelapse.rest.request;
+package com.example.timelapse.rest.request.core;
 
 import com.example.timelapse.rest.RestUtils;
-import com.example.timelapse.system.util.StringUtils;
 import com.example.timelapse.system.util.thread.AsyncCallObject;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -15,7 +14,10 @@ public abstract class RestRequest<T> extends AsyncCallObject<T> {
         return "";
     }
 
-    public abstract Class<T> getRestClazz();
+    public abstract Class<T> getRestClazz(); //{
+    //return (Class) ((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    // return null;
+    //  }
 
     protected String getPath() {
         return rootPath + "/" + RestUtils.getPath(getSubPath());

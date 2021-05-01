@@ -1,4 +1,4 @@
-package com.example.timelapse.rest.object.template;
+package com.example.timelapse.object.template;
 
 public class Teacher {
     private Long id;
