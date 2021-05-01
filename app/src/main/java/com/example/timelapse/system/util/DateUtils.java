@@ -283,4 +283,35 @@ public class DateUtils {
         }
         return "";
     }
+
+    public static String getRussianMonth(String month) {
+        String formattedMonth = month.toLowerCase().trim();
+        switch (formattedMonth) {
+            case "january":
+                return "Январь";
+            case "february":
+                return "Февраль";
+            case "march":
+                return "Март";
+            case "april":
+                return "Апрель";
+            case "may":
+                return "Май";
+            case "june":
+                return "Июнь";
+            case "july":
+                return "Июль";
+            case "august":
+                return "Август";
+            case "september":
+                return "Сентябрь";
+            case "october":
+                return "Октябрь";
+            case "november":
+                return "Ноябрь";
+            case "december":
+                return "Декабрь";
+        }
+        return "";
+    }
 }

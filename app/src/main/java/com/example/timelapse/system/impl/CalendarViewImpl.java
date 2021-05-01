@@ -1,19 +1,25 @@
 package com.example.timelapse.system.impl;
 
-import android.graphics.Color;
+import android.os.Build;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
+
+import com.example.timelapse.object.WorkCalendar;
+import com.example.timelapse.object.template.WorkCalendarCreator;
 import com.kizitonwose.calendarview.CalendarView;
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.CalendarMonth;
-import com.kizitonwose.calendarview.model.DayOwner;
 import com.kizitonwose.calendarview.ui.DayBinder;
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder;
 
 import java.time.DayOfWeek;
 import java.time.YearMonth;
 import java.time.temporal.WeekFields;
+import java.util.List;
 import java.util.Locale;
+
+import static com.example.timelapse.system.util.DateUtils.getRussianMonth;
 
 public class CalendarViewImpl {
     private CalendarView calendarView;
@@ -28,21 +34,21 @@ public class CalendarViewImpl {
     }
 
     protected void setDayBinderImpl() {
+        //TODO: убрать при реализации REST
+        List<WorkCalendar> calendar = WorkCalendarCreator.getWorkCalendarList();
+
         calendarView.setDayBinder(new DayBinder<DayViewContainer>() {
             @Override
             public DayViewContainer create(View view) {
                 return new DayViewContainer(view);
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void bind(DayViewContainer dayViewContainer, CalendarDay calendarDay) {
                 dayViewContainer.textView.setText(String.valueOf(calendarDay.getDate().getDayOfMonth()));
-                if (calendarDay.getOwner().equals(DayOwner.THIS_MONTH))
-                    dayViewContainer.textView.setTextColor(Color.BLACK);
-                else
-                    dayViewContainer.textView.setTextColor(Color.GRAY);
-                //dayViewContainer.textView.setTextColor(ContextCompat.getColor(context, R.color.light_gray));
-                //dayViewContainer.layout.setBackground(null);
+
+                DayCalendarBinder.bind(calendar, dayViewContainer, calendarDay);
             }
         });
     }
@@ -58,7 +64,7 @@ public class CalendarViewImpl {
 
             @Override
             public void bind(MonthViewContainer monthViewContainer, CalendarMonth calendarMonth) {
-                monthViewContainer.textView.setText(calendarMonth.getYearMonth().getMonth().name() + " " + calendarMonth.getYearMonth().getYear());
+                monthViewContainer.textView.setText(getRussianMonth(calendarMonth.getYearMonth().getMonth().name()) + " " + calendarMonth.getYearMonth().getYear());
             }
 
             @Override

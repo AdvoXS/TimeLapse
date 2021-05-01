@@ -2,7 +2,6 @@ package com.example.timelapse.object;
 
 import java.sql.Time;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +9,16 @@ import lombok.Setter;
 /**
  * Рабочая смена
  */
-@AllArgsConstructor
 @EqualsAndHashCode
 public class WorkShift {
+    public WorkShift(Long id, Person person, Time startTime, Time endTime, DayType dayType) {
+        this.id = id;
+        this.person = person;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.dayType = dayType;
+    }
+
     @Getter
     @Setter
     private Long id;
