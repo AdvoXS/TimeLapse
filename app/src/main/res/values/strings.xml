@@ -3,11 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="dayType">
-        <day_type name="WORK">Рабочий день</day_type>
-        <day_type name="DAY_OFF">Выходной день</day_type>
-        <day_type name="NON_WORKING">Нерабочий день</day_type>
-        <day_type name="HOLIDAY">Праздничный день</day_type>
-        <day_type name="SICK_LEAVE">Больничный</day_type>
-        <day_type name="VACATION">Отпуск</day_type>
+        <item name="WORK">Рабочий день</item>
+        <item name="DAY_OFF">Выходной день</item>
+        <item name="NON_WORKING">Нерабочий день</item>
+        <item name="HOLIDAY">Праздничный день</item>
+        <item name="SICK_LEAVE">Больничный</item>
+        <item name="VACATION">Отпуск</item>
     </string-array>
 </resources>
