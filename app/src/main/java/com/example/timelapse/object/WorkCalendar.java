@@ -1,39 +1,61 @@
 package com.example.timelapse.object;
 
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Рабочий календарь
  */
-
-@EqualsAndHashCode
+@Entity
 public class WorkCalendar {
-    public WorkCalendar(Long id, Date date, List<WorkShift> workShifts) {
-        this.id = id;
-        this.date = date;
-        this.workShifts = workShifts;
-    }
-
-    @Getter
-    @Setter
+    @PrimaryKey
     private Long id;
-
-    @Getter
-    @Setter
+    @ColumnInfo
     private Date date;
 
-    @Getter
-    @Setter
-    private List<WorkShift> workShifts;
+    public WorkCalendar(Long id, Date date) {
+        this.id = id;
+        this.date = date;
+        // this.workShifts = workShifts;
+    }
+
+    //private long workShiftId;
+    //private List<WorkShift> workShifts;
 
     public LocalDate getLocalDate() {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+
+    //public List<WorkShift> getWorkShifts() {
+    //   return workShifts;
+    //}
+
+    //public void setWorkShifts(List<WorkShift> workShifts) {
+    // this.workShifts = workShifts;
+    // }
+
 }

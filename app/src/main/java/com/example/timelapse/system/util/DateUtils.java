@@ -16,7 +16,10 @@ package com.example.timelapse.system.util;
  ******************************************************************************/
 
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -50,6 +53,12 @@ public class DateUtils {
         return (sdf.format(cal.getTime()));
     }
 
+    public static Date localDateToDate(LocalDate date) {
+        if (date != null)
+            return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        else return null;
+    }
+
     public static final String dateToString(Date dt, String dateformat) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dt);
@@ -69,6 +78,12 @@ public class DateUtils {
         ret.append(cal.get(Calendar.YEAR));
 
         return ret.toString();
+    }
+
+    public static String getFormattedStringTime(Time time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(time);
+
     }
 
     public static final String dateToString(Date dt, String tzString, String dateformat) {

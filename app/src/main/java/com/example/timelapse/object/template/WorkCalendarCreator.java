@@ -1,7 +1,6 @@
 package com.example.timelapse.object.template;
 
 import com.example.timelapse.object.DayType;
-import com.example.timelapse.object.Person;
 import com.example.timelapse.object.WorkCalendar;
 import com.example.timelapse.object.WorkShift;
 
@@ -17,17 +16,17 @@ public class WorkCalendarCreator {
             Date date = new Date(121, 4, i);
             long id = i - 2;
             List<WorkShift> setShifts = new ArrayList<>();
-            WorkShift shift = new WorkShift((long) i - 2, new Person(), Time.valueOf("08:00:00"), Time.valueOf("17:00:00"), DayType.WORK);
+            WorkShift shift = new WorkShift((long) i - 2, Time.valueOf("09:00:00"), Time.valueOf("18:00:00"), DayType.WORK);
             setShifts.add(shift);
-            workCalendars.add(new WorkCalendar(id, date, setShifts));
+            workCalendars.add(new WorkCalendar(id, date));
         }
         for (int i = 9; i < 14; i++) {
             Date date = new Date(121, 4, i);
             long id = i - 2;
             List<WorkShift> setShifts = new ArrayList<>();
-            WorkShift shift = new WorkShift((long) i - 2, new Person(), Time.valueOf("08:00:00"), Time.valueOf("17:00:00"), DayType.WORK);
+            WorkShift shift = new WorkShift((long) i - 2, Time.valueOf("07:00:00"), Time.valueOf("16:00:00"), DayType.WORK);
             setShifts.add(shift);
-            workCalendars.add(new WorkCalendar(id, date, setShifts));
+            workCalendars.add(new WorkCalendar(id, date));
         }
         return workCalendars;
     }
