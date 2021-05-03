@@ -1,11 +1,11 @@
 package com.example.timelapse.view;
 
-import com.example.timelapse.object.WorkCalendar;
+import com.example.timelapse.object.WorkCalendarWithShift;
 
 public interface CalendarView {
     void visibleElementsForWork(boolean t);
 
-    void putInfoElementsDayOff(WorkCalendar calendar);
+    void putInfoElementsDayOff(WorkCalendarWithShift calendar);
 
-    void putInfoElementsWorkDay(WorkCalendar calendar);
+    void putInfoElementsWorkDay(WorkCalendarWithShift calendar);
 }

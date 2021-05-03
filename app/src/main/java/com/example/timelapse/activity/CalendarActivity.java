@@ -10,9 +10,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timelapse.R;
-import com.example.timelapse.object.WorkCalendar;
+import com.example.timelapse.object.DayType;
+import com.example.timelapse.object.WorkCalendarWithShift;
+import com.example.timelapse.object.WorkShift;
 import com.example.timelapse.presenter.CalendarPresenter;
+import com.example.timelapse.system.util.DateUtils;
 import com.example.timelapse.view.CalendarView;
+
+import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarView {
     CalendarPresenter presenter;
@@ -37,21 +42,21 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
     }
 
     @Override
-    public void putInfoElementsDayOff(WorkCalendar calendar) {
+    public void putInfoElementsDayOff(WorkCalendarWithShift calendar) {
         TextView dayTypeView = findViewById(R.id.time_shift_type_day);
-        /*List<WorkShift> shifts = calendar.getWorkShifts();
-        if(shifts!=null && shifts.size()!=0) {
+        List<WorkShift> shifts = calendar.getWorkShifts();
+        if (shifts != null && shifts.size() != 0) {
             String dayTypeExtra = shifts.get(0).getDayType().getAbout();
             if (dayTypeExtra != null)
                 dayTypeView.setText(dayTypeExtra);
             else dayTypeView.setText(DayType.DAY_OFF.getAbout());
-        }*/
+        }
     }
 
     @Override
-    public void putInfoElementsWorkDay(WorkCalendar calendar) {
+    public void putInfoElementsWorkDay(WorkCalendarWithShift calendar) {
         TextView dayTypeView = findViewById(R.id.time_shift_type_day);
-       /* WorkShift shift = calendar.getWorkShifts().get(0);
+        WorkShift shift = calendar.getWorkShifts().get(0);
         String dayTypeExtra = shift.getDayType().getAbout();
         if (dayTypeExtra != null)
             dayTypeView.setText(dayTypeExtra);
@@ -61,12 +66,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
         TextView endTime = findViewById(R.id.time_shift_time_end);
 
         String startTimeExtra = DateUtils.getFormattedStringTime(shift.getStartTime());
-        if (startTimeExtra != null)
-            startTime.setText(startTimeExtra);
+        startTime.setText(startTimeExtra);
 
         String endTimeExtra = DateUtils.getFormattedStringTime(shift.getEndTime());
-        if (endTimeExtra != null)
-            endTime.setText(endTimeExtra);*/
+        endTime.setText(endTimeExtra);
     }
 
 
@@ -79,9 +82,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
         ImageView edit = findViewById(R.id.time_shift_edit_image);
         edit.setOnClickListener(l -> {
             Intent intent = new Intent(edit.getContext(), TimeShiftChangeActivity.class);
-            /*intent.putExtra("DATE", calendarDay.getDate());
-            String calendarJSON = new Gson().toJson(calendar);
-            intent.putExtra("CALENDAR",calendarJSON);*/
+            intent.putExtra("DATE", intent.getStringExtra("DATE"));
+            intent.putExtra("CALENDAR", intent.getStringExtra("CALENDAR"));
             startActivity(intent);
         });
     }

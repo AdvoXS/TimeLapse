@@ -3,16 +3,13 @@ package com.example.timelapse.presenter;
 import android.content.Intent;
 
 import com.example.timelapse.object.DayType;
-import com.example.timelapse.object.WorkCalendar;
 import com.example.timelapse.object.WorkCalendarWithShift;
 import com.example.timelapse.view.CalendarView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class CalendarPresenter {
 
@@ -31,10 +28,10 @@ public class CalendarPresenter {
             if (workCalendar.workCalendar.getLocalDate().equals(date)) {
                 if (!workCalendar.workShifts.get(0).getDayType().equals(DayType.WORK)) {
                     calendarView.visibleElementsForWork(false);
-                    calendarView.putInfoElementsDayOff(workCalendar.workCalendar);
+                    calendarView.putInfoElementsDayOff(workCalendar);
                 } else {
                     calendarView.visibleElementsForWork(true);
-                    calendarView.putInfoElementsWorkDay(workCalendar.workCalendar);
+                    calendarView.putInfoElementsWorkDay(workCalendar);
                 }
                 isExist = true;
                 break;
@@ -42,7 +39,7 @@ public class CalendarPresenter {
         }
         if (!isExist) {
             calendarView.visibleElementsForWork(false);
-            calendarView.putInfoElementsDayOff(new WorkCalendar(new Random().nextLong(), new Date()));
+            calendarView.putInfoElementsDayOff(new WorkCalendarWithShift());
         }
     }
 }
