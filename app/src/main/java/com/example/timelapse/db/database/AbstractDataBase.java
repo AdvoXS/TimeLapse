@@ -14,4 +14,6 @@ public interface AbstractDataBase {
     WorkShiftDao workShiftDao();
 
     WorkCalendarWithShiftDao workCalendarWithShiftDao();
+
+    //AppSettingsDao appSettingsDao();
 }

@@ -59,6 +59,12 @@ public class DateUtils {
         else return null;
     }
 
+    public static LocalDate dateToLocalDate(Date date) {
+        if (date != null)
+            return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        else return null;
+    }
+
     public static final String dateToString(Date dt, String dateformat) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dt);
@@ -299,7 +305,7 @@ public class DateUtils {
         return "";
     }
 
-    public static String getRussianMonth(String month) {
+    public static String getRussianMonth(String month) throws Exception {
         String formattedMonth = month.toLowerCase().trim();
         switch (formattedMonth) {
             case "january":
@@ -327,6 +333,6 @@ public class DateUtils {
             case "december":
                 return "Декабрь";
         }
-        return "";
+        throw new Exception("Неправильная строка");
     }
 }

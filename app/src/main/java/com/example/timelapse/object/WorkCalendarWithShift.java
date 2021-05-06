@@ -3,14 +3,20 @@ package com.example.timelapse.object;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import java.util.List;
-
 public class WorkCalendarWithShift {
     @Embedded
-    public WorkCalendar workCalendar;
+    private WorkCalendar workCalendar;
 
     @Relation(parentColumn = "id", entityColumn = "calendarId", entity = WorkShift.class)
-    public List<WorkShift> workShifts;
+    private WorkShift workShift;
+
+    public WorkCalendarWithShift(WorkCalendar workCalendar, WorkShift workShift) {
+        this.workCalendar = workCalendar;
+        this.workShift = workShift;
+    }
+
+    public WorkCalendarWithShift() {
+    }
 
     public WorkCalendar getWorkCalendar() {
         return workCalendar;
@@ -20,11 +26,11 @@ public class WorkCalendarWithShift {
         this.workCalendar = workCalendar;
     }
 
-    public List<WorkShift> getWorkShifts() {
-        return workShifts;
+    public WorkShift getWorkShift() {
+        return workShift;
     }
 
-    public void setWorkShifts(List<WorkShift> workShifts) {
-        this.workShifts = workShifts;
+    public void setWorkShift(WorkShift workShift) {
+        this.workShift = workShift;
     }
 }

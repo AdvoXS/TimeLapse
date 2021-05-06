@@ -1,6 +1,7 @@
-package com.example.timelapse.system.impl;
+package com.example.timelapse.system.impl.calendar;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.view.View;
@@ -8,9 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.timelapse.activity.CalendarActivity;
+import com.example.timelapse.activity.TimeShiftMainActivity;
 import com.example.timelapse.object.WorkCalendarWithShift;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kizitonwose.calendarview.CalendarView;
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.CalendarMonth;
@@ -39,12 +41,12 @@ public class CalendarViewImpl {
         this.activity = activity;
     }
 
-    public void setup(List<WorkCalendarWithShift> calendar) {
-        setDayBinderImpl(calendar);
+    public void setup(Context context, List<WorkCalendarWithShift> calendar) {
+        setDayBinderImpl(context, calendar);
         setMonthHeaderBinderImpl();
     }
 
-    protected void setDayBinderImpl(List<WorkCalendarWithShift> calendar) {
+    protected void setDayBinderImpl(Context context, List<WorkCalendarWithShift> calendar) {
         //TODO: убрать при реализации REST
         //List<WorkCalendar> calendar = WorkCalendarCreator.getWorkCalendarList();
 
@@ -58,7 +60,8 @@ public class CalendarViewImpl {
             @Override
             public void bind(DayViewContainer dayViewContainer, CalendarDay calendarDay) {
                 dayViewContainer.textView.setText(String.valueOf(calendarDay.getDate().getDayOfMonth()));
-                DayCalendarBinder.bind(calendar, dayViewContainer, calendarDay);
+
+                new DayCalendarBinder(context).bind(calendar, dayViewContainer, calendarDay);
                 setOnClickListener(dayViewContainer.textView, calendarDay, calendar);
             }
 
@@ -76,7 +79,11 @@ public class CalendarViewImpl {
 
             @Override
             public void bind(MonthViewContainer monthViewContainer, CalendarMonth calendarMonth) {
-                monthViewContainer.textView.setText(getRussianMonth(calendarMonth.getYearMonth().getMonth().name()) + " " + calendarMonth.getYearMonth().getYear());
+                try {
+                    monthViewContainer.textView.setText(getRussianMonth(calendarMonth.getYearMonth().getMonth().name()) + " " + calendarMonth.getYearMonth().getYear());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -90,10 +97,13 @@ public class CalendarViewImpl {
     protected void setOnClickListener(TextView view, CalendarDay calendarDay, List<WorkCalendarWithShift> calendar) {
         view.setOnClickListener(v -> {
             if (calendarDay.getOwner() == DayOwner.THIS_MONTH) {
-                Intent intent = new Intent(calendarView.getContext(), CalendarActivity.class);
+                Intent intent = new Intent(calendarView.getContext(), TimeShiftMainActivity.class);
                 intent.putExtra("DATE", calendarDay.getDate());
-                String calendarJSON = new Gson().toJson(calendar);
-                intent.putExtra("CALENDAR", calendarJSON);
+                Gson gson = new GsonBuilder()
+                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                        .create();
+
+                intent.putExtra("CALENDAR", gson.toJson(calendar));
                 activity.startActivity(intent);
             }
         });

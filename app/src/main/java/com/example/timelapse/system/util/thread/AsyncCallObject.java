@@ -11,12 +11,12 @@ public abstract class AsyncCallObject<T> extends AsyncCallExecutor<T> {
         try {
             Future<T> result = pool.submit(this::run);
             if (result != null) {
-                T obj = result.get(1000, TimeUnit.MILLISECONDS);
+                T obj = result.get(100000, TimeUnit.MILLISECONDS);
                 postExecute(obj);
                 return obj;
             }
         } catch (TimeoutException e) {
-            System.out.println("Вышло время ожидания данных от сервера");
+            System.err.println("Вышло время ожидания данных от сервера");
         } catch (ExecutionException | InterruptedException e) {
             System.out.println("Ошибка выполнения асинхронного запроса!");
             System.out.println(e.getMessage());

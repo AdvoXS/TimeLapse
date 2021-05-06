@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/teal_700">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/time_shift_date_change_text"
@@ -17,7 +15,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:text="31 декабря 2021"
         android:textAlignment="center"
-        android:textColor="@color/material_on_primary_emphasis_medium"
+        android:textColor="@color/purple_500"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,63 +25,76 @@
         app:layout_constraintVertical_bias="0.12" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/time_shift_change_save_button"
         android:layout_width="159dp"
         android:layout_height="63dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="650dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="600dp"
+        android:layout_marginEnd="50dp"
         android:text="Сохранить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
+        android:id="@+id/time_shift_change_cancel_button"
         android:layout_width="142dp"
         android:layout_height="54dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="660dp"
-        android:layout_marginEnd="300dp"
+        android:layout_marginTop="607dp"
+        android:layout_marginEnd="80dp"
         android:background="@color/white"
         android:text="Отменить"
         android:textColor="@color/black"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toStartOf="@+id/time_shift_change_save_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38"
+        app:layout_constraintVertical_bias="0.0"
         app:rippleColor="@color/white" />
 
     <EditText
-        android:id="@+id/editTextTime"
+        android:id="@+id/time_shift_change_start_edit"
         android:layout_width="190dp"
         android:layout_height="40dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginEnd="130dp"
         android:ems="10"
         android:inputType="time"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="359dp" />
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_change_start_text" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="109dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="5dp"
         android:text="Тип дня"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="214dp"
-        tools:layout_editor_absoluteY="221dp" />
+        android:textColor="@android:color/secondary_text_dark"
+        app:layout_constraintBottom_toTopOf="@+id/time_shift_change_day_type_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_date_change_text"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/time_shift_change_day_type_spinner"
         style="@style/Widget.AppCompat.Spinner"
-        android:layout_width="188dp"
-        android:layout_height="53dp"
+        android:layout_width="212dp"
+        android:layout_height="46dp"
         android:layout_marginLeft="136dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="78dp"
         android:entries="@array/dayType"
         android:spinnerMode="dialog"
         android:textColor="@color/white"
@@ -91,34 +102,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_shift_date_change_text"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintVertical_bias="0.32" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/time_shift_change_start_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginBottom="10dp"
         android:text="Начало"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="320dp" />
+        android:textColor="@android:color/secondary_text_dark"
+        app:layout_constraintBottom_toTopOf="@+id/time_shift_change_start_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_change_day_type_spinner" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/time_shift_change_end_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="10dp"
         android:text="Конец"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="420dp" />
+        android:textColor="@android:color/secondary_text_dark"
+        app:layout_constraintBottom_toTopOf="@+id/time_shift_change_end_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_change_start_edit"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextTime2"
+        android:id="@+id/time_shift_change_end_edit"
         android:layout_width="190dp"
         android:layout_height="40dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="210dp"
         android:ems="10"
         android:inputType="time"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="460dp" />
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_shift_change_end_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

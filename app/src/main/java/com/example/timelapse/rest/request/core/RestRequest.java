@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 public abstract class RestRequest<T> extends AsyncCallObject<T> {
 
-    private final String rootPath = "http://192.168.0.103:8083";
+    private final String rootPath = "https://60912b6350c2550017677ba8.mockapi.io/tpp_api/v1";
 
     public String getSubPath() {
         return "";
@@ -22,6 +22,7 @@ public abstract class RestRequest<T> extends AsyncCallObject<T> {
     protected String getPath() {
         return rootPath + "/" + RestUtils.getPath(getSubPath());
     }
+
 
     protected RestTemplate getRestTemplate(int timeout) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();

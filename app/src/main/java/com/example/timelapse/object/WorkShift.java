@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.sql.Time;
+import java.util.Date;
 
 
 /**
@@ -15,18 +15,14 @@ public class WorkShift {
     @PrimaryKey
     private Long id;
     @ColumnInfo
-    private Time startTime;
+    private Date startTime;
     @ColumnInfo
-    private Time endTime;
+    private Date endTime;
     @ColumnInfo
     private DayType dayType;
     private long calendarId;
 
-    public WorkShift(Long id, Time startTime, Time endTime, DayType dayType) {
-        this.id = id;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.dayType = dayType;
+    public WorkShift() {
     }
 
     public long getCalendarId() {
@@ -45,6 +41,14 @@ public class WorkShift {
         this.dayType = dayType;
     }
 
+    public WorkShift(Long id, Date startTime, Date endTime, DayType dayType, long calendarId) {
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.dayType = dayType;
+        this.calendarId = calendarId;
+    }
+
     public Long getId() {
         return id;
     }
@@ -53,20 +57,28 @@ public class WorkShift {
         this.id = id;
     }
 
+    public void setDayType(String dayType) {
+        for (DayType dayType1 : DayType.values()) {
+            if (dayType1.getAbout().equals(dayType)) {
+                this.dayType = dayType1;
+                break;
+            }
+        }
+    }
 
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 }

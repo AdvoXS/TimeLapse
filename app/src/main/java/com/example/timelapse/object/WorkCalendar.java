@@ -26,9 +26,6 @@ public class WorkCalendar {
         // this.workShifts = workShifts;
     }
 
-    //private long workShiftId;
-    //private List<WorkShift> workShifts;
-
     public LocalDate getLocalDate() {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
@@ -48,14 +45,5 @@ public class WorkCalendar {
     public void setDate(Date date) {
         this.date = date;
     }
-
-
-    //public List<WorkShift> getWorkShifts() {
-    //   return workShifts;
-    //}
-
-    //public void setWorkShifts(List<WorkShift> workShifts) {
-    // this.workShifts = workShifts;
-    // }
 
 }
