@@ -11,13 +11,4 @@ public class GetRussianMonthTest {
         Assert.assertEquals(DateUtils.getRussianMonth("March"), "Март");
         Assert.assertEquals(DateUtils.getRussianMonth(" ApRiL"), "Апрель");
     }
-
-    @Test
-    public void getRussianMonthException() {
-        try {
-            DateUtils.getRussianMonth("sfd");
-        } catch (Exception e) {
-            Assert.assertEquals(e.getMessage(), "Неправильная строка");
-        }
-    }
 }

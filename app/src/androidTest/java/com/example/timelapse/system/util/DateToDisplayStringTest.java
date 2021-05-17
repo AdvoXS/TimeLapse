@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.timelapse.db.database.AbstractDataBase;
-import com.example.timelapse.db.database.DBManager;
+import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendar;
 
 import org.junit.Assert;
@@ -23,7 +23,7 @@ public class DateToDisplayStringTest {
     @Test
     public void test() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        AbstractDataBase db = DBManager.getDB(appContext, DBManager.LOCAL_BASE);
+        AbstractDataBase db = DBHelper.getDB(appContext, DBHelper.LOCAL_BASE);
         for (WorkCalendar calendar : db.workCalendarDao().getAll()) {
             String displayDate = DateUtils.dateToDisplayString(calendar.getDate());
             Assert.assertTrue(Pattern.compile("\\d{1,2} [а-яА-Я]+ \\d\\d\\d\\d").matcher(displayDate).find());

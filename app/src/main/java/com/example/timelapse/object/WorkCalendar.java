@@ -20,10 +20,12 @@ public class WorkCalendar {
     @ColumnInfo
     private Date date;
 
+    public WorkCalendar() {
+    }
+
     public WorkCalendar(Long id, Date date) {
         this.id = id;
         this.date = date;
-        // this.workShifts = workShifts;
     }
 
     public LocalDate getLocalDate() {

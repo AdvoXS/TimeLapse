@@ -2,24 +2,42 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.timelapse">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.TimeLapse"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <receiver
+            android:name=".service.ObserveBroadcastRec"
+            android:enabled="true"
+            android:exported="false"></receiver>
+        <service
+            android:name=".service.ObserveTimeLapseService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TimeShiftMainActivity" />
+        <activity android:name=".activity.TimeShiftMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.TimeShiftMainActivity" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.TimeShiftChangeActivity" />
     </application>
 

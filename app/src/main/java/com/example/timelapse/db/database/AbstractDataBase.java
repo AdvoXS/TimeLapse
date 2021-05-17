@@ -1,6 +1,7 @@
 package com.example.timelapse.db.database;
 
 
+import com.example.timelapse.db.dao.AppSettingsDao;
 import com.example.timelapse.db.dao.PersonDao;
 import com.example.timelapse.db.dao.WorkCalendarDao;
 import com.example.timelapse.db.dao.WorkCalendarWithShiftDao;
@@ -15,5 +16,5 @@ public interface AbstractDataBase {
 
     WorkCalendarWithShiftDao workCalendarWithShiftDao();
 
-    //AppSettingsDao appSettingsDao();
+    AppSettingsDao appSettingsDao();
 }

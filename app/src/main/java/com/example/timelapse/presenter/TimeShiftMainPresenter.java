@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.example.timelapse.db.database.AbstractDataBase;
-import com.example.timelapse.db.database.DBManager;
+import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.DayType;
 import com.example.timelapse.object.WorkCalendarWithShift;
 import com.example.timelapse.system.util.thread.AsyncCallObject;
@@ -25,7 +25,7 @@ public class TimeShiftMainPresenter {
 
     public TimeShiftMainPresenter(TimeShiftMainView timeShiftMainView, Activity activity) {
         this.timeShiftMainView = timeShiftMainView;
-        db = DBManager.getDB(activity.getApplicationContext(), DBManager.LOCAL_BASE);
+        db = DBHelper.getDB(activity.getApplicationContext(), DBHelper.LOCAL_BASE);
     }
 
     public void fillElements(Intent intent) {
@@ -48,15 +48,17 @@ public class TimeShiftMainPresenter {
                 boolean isExist = false;
                 for (WorkCalendarWithShift workCalendar : object) {
                     if (workCalendar.getWorkCalendar().getLocalDate().equals(date)) {
-                        if (!workCalendar.getWorkShift().getDayType().equals(DayType.WORK)) {
-                            timeShiftMainView.visibleElementsForWork(false);
-                            timeShiftMainView.putInfoElementsDayOff(workCalendar);
-                        } else {
-                            timeShiftMainView.visibleElementsForWork(true);
-                            timeShiftMainView.putInfoElementsWorkDay(workCalendar);
+                        if (workCalendar.getWorkShift() != null) {
+                            if (!workCalendar.getWorkShift().getDayType().equals(DayType.WORK)) {
+                                timeShiftMainView.visibleElementsForWork(false);
+                                timeShiftMainView.putInfoElementsDayOff(workCalendar);
+                            } else {
+                                timeShiftMainView.visibleElementsForWork(true);
+                                timeShiftMainView.putInfoElementsWorkDay(workCalendar);
+                            }
+                            isExist = true;
+                            break;
                         }
-                        isExist = true;
-                        break;
                     }
                 }
 

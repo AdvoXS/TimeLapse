@@ -305,7 +305,7 @@ public class DateUtils {
         return "";
     }
 
-    public static String getRussianMonth(String month) throws Exception {
+    public static String getRussianMonth(String month) {
         String formattedMonth = month.toLowerCase().trim();
         switch (formattedMonth) {
             case "january":
@@ -333,6 +333,6 @@ public class DateUtils {
             case "december":
                 return "Декабрь";
         }
-        throw new Exception("Неправильная строка");
+        return null;
     }
 }

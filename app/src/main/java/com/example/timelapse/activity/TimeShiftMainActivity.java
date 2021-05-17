@@ -1,6 +1,8 @@
 package com.example.timelapse.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.example.timelapse.object.DayType;
 import com.example.timelapse.object.WorkCalendarWithShift;
 import com.example.timelapse.object.WorkShift;
 import com.example.timelapse.presenter.TimeShiftMainPresenter;
+import com.example.timelapse.service.ObserveBroadcastRec;
+import com.example.timelapse.service.ObserveTimeLapseService;
 import com.example.timelapse.system.util.DateUtils;
 import com.example.timelapse.view.TimeShiftMainView;
 
@@ -21,8 +25,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class TimeShiftMainActivity extends AppCompatActivity implements TimeShiftMainView {
-    TimeShiftMainPresenter presenter;
-    LocalDate localDate;
+    public final static String BROADCAST_OBSERVE_TIME_SHIFT_CHANGE = "android.intent.action.TimeShiftMainActivity";
+    private TimeShiftMainPresenter presenter;
+    private LocalDate localDate;
 
     @Override
     public void visibleElementsForWork(boolean flag) {
@@ -95,8 +100,21 @@ public class TimeShiftMainActivity extends AppCompatActivity implements TimeShif
             intent.putExtra("CALENDAR", intent.getStringExtra("CALENDAR"));
             startActivity(intent);
         });
+        registerObserverService();
     }
 
+    private void registerObserverService() {
+        Intent intentObserveService = new Intent(this, ObserveTimeLapseService.class);
+        ObserveBroadcastRec broadcastRec = new ObserveBroadcastRec() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                presenter.fillElements(getIntent());
+            }
+        };
+        IntentFilter intFilt = new IntentFilter(BROADCAST_OBSERVE_TIME_SHIFT_CHANGE);
+        registerReceiver(broadcastRec, intFilt);
+        ObserveTimeLapseService.enqueueWork(getApplicationContext(), intentObserveService);
+    }
 
     @Override
     protected void onStart() {

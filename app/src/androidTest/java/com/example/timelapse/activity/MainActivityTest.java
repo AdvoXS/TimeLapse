@@ -45,7 +45,7 @@ public class MainActivityTest {
     @Test
     public void changeText_sameActivity() {
         launchActivity();
-        int position = 2;
+        int position = 0;
         onView(withId(R.id.time_shift_change_day_type_spinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)))).atPosition(position).perform(click());
 

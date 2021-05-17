@@ -7,10 +7,11 @@ import androidx.room.TypeConverters;
 import com.example.timelapse.object.Person;
 import com.example.timelapse.object.WorkCalendar;
 import com.example.timelapse.object.WorkShift;
+import com.example.timelapse.object.settings.AppSettings;
 
 import java.io.Serializable;
 
-@Database(entities = {Person.class, WorkCalendar.class, WorkShift.class}, version = 1)
+@Database(entities = {Person.class, WorkCalendar.class, WorkShift.class, AppSettings.class}, version = 2)
 @TypeConverters({DBConverter.class})
 public abstract class LocalBase extends RoomDatabase implements AbstractDataBase, Serializable {
 

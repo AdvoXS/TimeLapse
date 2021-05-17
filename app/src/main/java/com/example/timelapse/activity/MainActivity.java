@@ -1,13 +1,18 @@
 package com.example.timelapse.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timelapse.R;
 import com.example.timelapse.db.database.AbstractDataBase;
-import com.example.timelapse.db.database.DBManager;
+import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendarWithShift;
+import com.example.timelapse.service.ObserveBroadcastRec;
+import com.example.timelapse.service.ObserveTimeLapseService;
 import com.example.timelapse.system.impl.calendar.CalendarViewImpl;
 import com.example.timelapse.system.util.thread.AsyncCallObject;
 import com.kizitonwose.calendarview.CalendarView;
@@ -15,8 +20,9 @@ import com.kizitonwose.calendarview.CalendarView;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    CalendarViewImpl calendarView1 = null;
-    AbstractDataBase db = null;
+    public final static String BROADCAST_OBSERVE = "android.intent.action.MAIN";
+    private CalendarViewImpl calendarView1 = null;
+    private AbstractDataBase db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         CalendarView calendarView = findViewById(R.id.calendarViewer);
         calendarView1 = new CalendarViewImpl(this, calendarView);
-        db = DBManager.getDB(getApplicationContext(), DBManager.LOCAL_BASE);
-       /* new AsyncCallVoid() {
-            @Override
-            protected Void run() {
-                db.workCalendarDao().delete();
-                db.workShiftDao().delete();
-                return null;
-            }
+        db = DBHelper.getDB(getApplicationContext(), DBHelper.LOCAL_BASE);
 
-        }.execute();*/
-
+        registerObserverService();
         updateCalendar(db, calendarView1);
 
     }
@@ -43,7 +41,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         updateCalendar(db, calendarView1);
-        //  new TimeTablesRequestGet().execute();
+    }
+
+    private void registerObserverService() {
+        Intent intentObserveService = new Intent(this, ObserveTimeLapseService.class);
+        ObserveBroadcastRec broadcastRec = new ObserveBroadcastRec() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                updateCalendar(db, calendarView1);
+            }
+        };
+        IntentFilter intFilt = new IntentFilter(BROADCAST_OBSERVE);
+        registerReceiver(broadcastRec, intFilt);
+        ObserveTimeLapseService.enqueueWork(getApplicationContext(), intentObserveService);
     }
 
     private void updateCalendar(AbstractDataBase db, CalendarViewImpl calendarView1) {
@@ -60,29 +70,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }.execute();
     }
-    /*private class RequestTask extends AsyncCallObject<TimeTable[]> {
-        @Override
-        protected TimeTable[] run() {
-            try {
-                final String url = "http://192.168.0.103:8083/";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                TimeTable[] timeTable = restTemplate.getForObject(url, TimeTable[].class);
-                return timeTable;
-            } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
-            }
-            return null;
-        }
-
-        @Override
-        public void postExecute(TimeTable[] timeTable) {
-            TextView greetingIdText = findViewById(R.id.id_value);
-            TextView greetingContentText = findViewById(R.id.content_value);
-            greetingIdText.setText(timeTable[0].getId().toString());
-            greetingContentText.setText(timeTable[0].getStatus());
-        }
-    }*/
 
 
 }

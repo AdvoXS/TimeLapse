@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timelapse.R;
 import com.example.timelapse.db.database.AbstractDataBase;
-import com.example.timelapse.db.database.DBManager;
+import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.DayType;
 import com.example.timelapse.object.WorkCalendar;
 import com.example.timelapse.object.WorkCalendarWithShift;
@@ -30,16 +30,16 @@ import java.util.Date;
 import java.util.Random;
 
 public class TimeShiftChangeActivity extends AppCompatActivity implements TimeShiftMainView {
-    TimeShiftMainPresenter presenter;
-    Spinner dayTypeView;
-    AbstractDataBase db;
-    Date date;
+    private TimeShiftMainPresenter presenter;
+    private Spinner dayTypeView;
+    private AbstractDataBase db;
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.time_shift_change);
-        db = DBManager.getDB(getApplicationContext(), DBManager.LOCAL_BASE);
+        db = DBHelper.getDB(getApplicationContext(), DBHelper.LOCAL_BASE);
         date = DateUtils.localDateToDate((LocalDate) getIntent().getSerializableExtra("DATE"));
         dayTypeView = findViewById(R.id.time_shift_change_day_type_spinner);
         presenter = new TimeShiftMainPresenter(this, this);
@@ -101,8 +101,8 @@ public class TimeShiftChangeActivity extends AppCompatActivity implements TimeSh
     private void fillWorkCalendarWithSift(WorkCalendarWithShift object) {
         EditText startEdit = findViewById(R.id.time_shift_change_start_edit);
         EditText endEdit = findViewById(R.id.time_shift_change_end_edit);
-        WorkShift workShift = null;
-        WorkCalendar workCalendar = null;
+        WorkShift workShift;
+        WorkCalendar workCalendar;
         boolean isNewShift = false;
         boolean isNewCalendar = false;
         if (object != null && object.getWorkCalendar() != null) {
@@ -162,7 +162,6 @@ public class TimeShiftChangeActivity extends AppCompatActivity implements TimeSh
         }.execute();
         Intent intent = new Intent(startEdit.getContext(), TimeShiftMainActivity.class);
         intent.putExtra("DATE", DateUtils.dateToLocalDate(date));
-        //intent.putExtra("CALENDAR", intent.getStringExtra("CALENDAR"));
         startActivity(intent);
     }
 

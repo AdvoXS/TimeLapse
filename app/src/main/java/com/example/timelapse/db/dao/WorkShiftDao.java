@@ -3,6 +3,7 @@ package com.example.timelapse.db.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
@@ -22,7 +23,7 @@ public interface WorkShiftDao {
     @Query("SELECT * FROM WorkShift WHERE calendarId =:calendarIds")
     List<WorkShift> getFromParentId(long calendarIds);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WorkShift workShift);
 
     @Update

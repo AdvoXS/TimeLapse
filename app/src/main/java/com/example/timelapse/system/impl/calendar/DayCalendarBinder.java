@@ -7,7 +7,11 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.timelapse.db.database.AbstractDataBase;
+import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendarWithShift;
+import com.example.timelapse.object.settings.AppSettings;
+import com.example.timelapse.system.util.thread.AsyncCallObject;
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.DayOwner;
 
@@ -35,14 +39,15 @@ public class DayCalendarBinder extends ContextWrapper {
                 if (it.hasNext()) {
                     while (it.hasNext()) {
                         WorkCalendarWithShift workCalendar = it.next();
-                        if (workCalendar.getWorkCalendar().getDate() != null && workCalendar.getWorkCalendar().getLocalDate().equals(calendarDay.getDate())) {
+                        dayColorBind(dayViewContainer, workCalendar);
+                        /*if (workCalendar.getWorkCalendar().getDate() != null && workCalendar.getWorkCalendar().getLocalDate().equals(calendarDay.getDate())) {
                             //dayColorBind(dayViewContainer, workCalendar);
                             dayViewContainer.textView.setTextColor(Color.WHITE);
                             dayViewContainer.textView.setBackgroundColor(Color.parseColor("#aa4ebaaa"));
                             it.remove();
                             break;
                         } else
-                            dayViewContainer.textView.setTextColor(Color.BLACK);
+                            dayViewContainer.textView.setTextColor(Color.BLACK);*/
                     }
                 } else {
                     dayViewContainer.textView.setTextColor(Color.BLACK);
@@ -53,8 +58,8 @@ public class DayCalendarBinder extends ContextWrapper {
 
     }
 
-    /*private void dayColorBind(DayViewContainer dayViewContainer, WorkCalendarWithShift workCalendarWithShift) {
-        AbstractDataBase db = DBManager.getDB(getApplicationContext(), DBManager.LOCAL_BASE);
+    private void dayColorBind(DayViewContainer dayViewContainer, WorkCalendarWithShift workCalendarWithShift) {
+        AbstractDataBase db = DBHelper.getDB(getApplicationContext(), DBHelper.LOCAL_BASE);
         new AsyncCallObject<AppSettings>() {
 
             @Override
@@ -74,6 +79,5 @@ public class DayCalendarBinder extends ContextWrapper {
                 }
             }
         }.execute();
-
-    }*/
+    }
 }

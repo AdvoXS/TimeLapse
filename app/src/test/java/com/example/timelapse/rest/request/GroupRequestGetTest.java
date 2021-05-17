@@ -12,9 +12,9 @@ import static java.lang.System.currentTimeMillis;
 public class GroupRequestGetTest {
     @Test
     public void test() {
+
         new GroupRequestGet() {
             private long startTime;
-            private long endTime;
 
             @Override
             public Group[] execute() {
@@ -24,7 +24,7 @@ public class GroupRequestGetTest {
 
             @Override
             protected void postExecute(Group[] object) {
-                endTime = currentTimeMillis();
+                long endTime = currentTimeMillis();
                 String expectedJson = "[{\"id\":\"1\",\"name\":\"name 1\",\"stage\":11}]";
                 String json = new Gson().toJson(object);
                 Assert.assertTrue((endTime - startTime) < 5000);

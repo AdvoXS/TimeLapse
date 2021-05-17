@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-public class DBManager {
+public class DBHelper {
 
     public final static String LOCAL_BASE = "local-base";
     public final static String ONLINE_BASE = "online-base";
