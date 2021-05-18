@@ -1,11 +1,14 @@
 package com.example.timelapse.activity;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.timelapse.R;
 import com.example.timelapse.db.database.AbstractDataBase;
@@ -28,11 +31,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         CalendarView calendarView = findViewById(R.id.calendarViewer);
         calendarView1 = new CalendarViewImpl(this, calendarView);
         db = DBHelper.getDB(getApplicationContext(), DBHelper.LOCAL_BASE);
 
         registerObserverService();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(3000, getObserveNotification().build());
+
         updateCalendar(db, calendarView1);
 
     }
@@ -54,6 +61,17 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intFilt = new IntentFilter(BROADCAST_OBSERVE);
         registerReceiver(broadcastRec, intFilt);
         ObserveTimeLapseService.enqueueWork(getApplicationContext(), intentObserveService);
+    }
+
+    private NotificationCompat.Builder getObserveNotification() {
+        PendingIntent notifyIntent = PendingIntent.getActivity(this, 0, getIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        return new NotificationCompat.Builder(this, "android.intent.action.MAIN.notification.observe")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Изменения в графике")
+                .setContentText("График работы изменился. Нажмите, чтобы просмотреть!")
+                .setContentIntent(notifyIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
     }
 
     private void updateCalendar(AbstractDataBase db, CalendarViewImpl calendarView1) {
