@@ -1,4 +1,4 @@
-package com.example.timelapse.rest;
+package com.example.timelapse.system.rest;
 
 import com.example.timelapse.system.util.StringUtils;
 

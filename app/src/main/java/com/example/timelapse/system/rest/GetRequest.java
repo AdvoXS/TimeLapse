@@ -1,4 +1,4 @@
-package com.example.timelapse.rest.request.core;
+package com.example.timelapse.system.rest;
 
 import android.util.Log;
 
