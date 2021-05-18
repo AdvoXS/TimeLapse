@@ -1,5 +1,6 @@
 package com.example.timelapse.system.rest;
 
+import com.example.timelapse.system.util.RestUtils;
 import com.example.timelapse.system.util.thread.AsyncCallObject;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;

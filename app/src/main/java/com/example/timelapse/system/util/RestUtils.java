@@ -1,6 +1,4 @@
-package com.example.timelapse.system.rest;
-
-import com.example.timelapse.system.util.StringUtils;
+package com.example.timelapse.system.util;
 
 import java.util.regex.Pattern;
 
