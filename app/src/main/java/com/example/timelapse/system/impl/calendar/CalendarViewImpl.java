@@ -7,6 +7,7 @@ import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.example.timelapse.activity.TimeShiftMainActivity;
@@ -20,6 +21,8 @@ import com.kizitonwose.calendarview.model.DayOwner;
 import com.kizitonwose.calendarview.ui.DayBinder;
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder;
 
+
+
 import java.time.DayOfWeek;
 import java.time.YearMonth;
 import java.time.temporal.WeekFields;
@@ -29,7 +32,7 @@ import java.util.Locale;
 import static com.example.timelapse.system.util.DateUtils.getRussianMonth;
 
 public class CalendarViewImpl {
-    private CalendarView calendarView;
+    private final CalendarView calendarView;
     private Activity activity;
 
     public CalendarViewImpl(CalendarView calendarView) {
@@ -47,18 +50,16 @@ public class CalendarViewImpl {
     }
 
     protected void setDayBinderImpl(Context context, List<WorkCalendarWithShift> calendar) {
-        //TODO: убрать при реализации REST
-        //List<WorkCalendar> calendar = WorkCalendarCreator.getWorkCalendarList();
-
         calendarView.setDayBinder(new DayBinder<DayViewContainer>() {
+            @NonNull
             @Override
-            public DayViewContainer create(View view) {
+            public DayViewContainer create(@NonNull View view) {
                 return new DayViewContainer(view);
             }
 
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void bind(DayViewContainer dayViewContainer, CalendarDay calendarDay) {
+            public void bind(@NonNull DayViewContainer dayViewContainer, @NonNull CalendarDay calendarDay) {
                 dayViewContainer.textView.setText(String.valueOf(calendarDay.getDate().getDayOfMonth()));
 
                 new DayCalendarBinder(context).bind(calendar, dayViewContainer, calendarDay);
@@ -78,7 +79,7 @@ public class CalendarViewImpl {
         calendarView.setMonthHeaderBinder(new MonthHeaderFooterBinder<MonthViewContainer>() {
 
             @Override
-            public void bind(MonthViewContainer monthViewContainer, CalendarMonth calendarMonth) {
+            public void bind(@NonNull MonthViewContainer monthViewContainer,@NonNull CalendarMonth calendarMonth) {
                 try {
                     monthViewContainer.textView.setText(getRussianMonth(calendarMonth.getYearMonth().getMonth().name()) + " " + calendarMonth.getYearMonth().getYear());
                 } catch (Exception e) {
@@ -87,7 +88,7 @@ public class CalendarViewImpl {
             }
 
             @Override
-            public MonthViewContainer create(View view) {
+            public MonthViewContainer create(@NonNull View view) {
                 return new MonthViewContainer(view);
             }
 

@@ -21,7 +21,7 @@
         <receiver
             android:name=".service.ObserveBroadcastRec"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false"/>
         <service
             android:name=".service.ObserveTimeLapseService"
             android:exported="false"
