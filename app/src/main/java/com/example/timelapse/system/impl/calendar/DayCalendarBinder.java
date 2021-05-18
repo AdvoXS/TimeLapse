@@ -22,6 +22,8 @@ import java.util.List;
 
 public class DayCalendarBinder extends ContextWrapper {
 
+    public final static String PREFIX_COLOR_DAY = "BACK_COLOR_DAY_";
+
     public DayCalendarBinder(Context base) {
         super(base);
     }
@@ -39,15 +41,11 @@ public class DayCalendarBinder extends ContextWrapper {
                 if (it.hasNext()) {
                     while (it.hasNext()) {
                         WorkCalendarWithShift workCalendar = it.next();
-                        dayColorBind(dayViewContainer, workCalendar);
-                        /*if (workCalendar.getWorkCalendar().getDate() != null && workCalendar.getWorkCalendar().getLocalDate().equals(calendarDay.getDate())) {
-                            //dayColorBind(dayViewContainer, workCalendar);
-                            dayViewContainer.textView.setTextColor(Color.WHITE);
-                            dayViewContainer.textView.setBackgroundColor(Color.parseColor("#aa4ebaaa"));
+                        if (workCalendar.getWorkCalendar().getDate() != null && workCalendar.getWorkCalendar().getLocalDate().equals(calendarDay.getDate())) {
+                            dayColorBind(dayViewContainer, workCalendar);
                             it.remove();
-                            break;
                         } else
-                            dayViewContainer.textView.setTextColor(Color.BLACK);*/
+                            dayViewContainer.textView.setTextColor(Color.BLACK);
                     }
                 } else {
                     dayViewContainer.textView.setTextColor(Color.BLACK);
@@ -64,18 +62,23 @@ public class DayCalendarBinder extends ContextWrapper {
 
             @Override
             protected AppSettings run() {
-                return db.appSettingsDao().getByName("BACK_COLOR_DAY_" + workCalendarWithShift.getWorkShift().getDayType().name());
+                if (workCalendarWithShift.getWorkShift() != null)
+                    return db.appSettingsDao().getByName("BACK_COLOR_DAY_" + workCalendarWithShift.getWorkShift().getDayType().name());
+                else return null;
             }
 
             @Override
             protected void postExecute(AppSettings object) {
-                super.postExecute(object);
                 if (object != null) {
-                    dayViewContainer.textView.setTextColor(Color.WHITE);
-                    dayViewContainer.textView.setBackgroundColor(Color.parseColor(object.getSettingValue()));
+                    int backColor = Color.parseColor(object.getSettingValue());
+                    if (backColor != Color.WHITE)
+                        dayViewContainer.textView.setTextColor(Color.WHITE);
+                    else
+                        dayViewContainer.textView.setTextColor(Color.BLACK);
+                    dayViewContainer.textView.setBackgroundColor(backColor);
                 } else {
-                    dayViewContainer.textView.setTextColor(Color.WHITE);
-                    dayViewContainer.textView.setBackgroundColor(Color.parseColor("#aa4ebaaa"));
+                    dayViewContainer.textView.setTextColor(Color.BLACK);
+                    dayViewContainer.textView.setBackgroundColor(Color.WHITE);
                 }
             }
         }.execute();

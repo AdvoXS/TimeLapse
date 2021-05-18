@@ -11,7 +11,7 @@ import com.example.timelapse.object.settings.AppSettings;
 
 import java.io.Serializable;
 
-@Database(entities = {Person.class, WorkCalendar.class, WorkShift.class, AppSettings.class}, version = 2)
+@Database(entities = {Person.class, WorkCalendar.class, WorkShift.class, AppSettings.class}, version = 3)
 @TypeConverters({DBConverter.class})
 public abstract class LocalBase extends RoomDatabase implements AbstractDataBase, Serializable {
 

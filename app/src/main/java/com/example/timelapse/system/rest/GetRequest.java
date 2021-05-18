@@ -15,7 +15,7 @@ public abstract class GetRequest<T> extends RestRequest<T> {
     protected T run() {
         try {
             final String url = getPath();
-            RestTemplate restTemplate = getRestTemplate(500);
+            RestTemplate restTemplate = getRestTemplate(1000);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             statusCode = restTemplate.getForEntity(url, getRestClazz()).getStatusCode();
             return restTemplate.getForObject(url, getRestClazz());

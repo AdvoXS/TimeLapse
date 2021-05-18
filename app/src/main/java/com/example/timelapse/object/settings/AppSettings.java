@@ -5,8 +5,16 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class AppSettings {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
+
+    public AppSettings() {
+    }
+
+    public AppSettings(String settingName, String settingValue) {
+        this.settingName = settingName;
+        this.settingValue = settingValue;
+    }
 
     private String settingName;
 

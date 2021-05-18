@@ -19,4 +19,12 @@ public abstract class AsyncCallExecutor<T> implements AsyncCall<T> {
 
     protected void postExecute(T object) {
     }
+
+    public boolean isShutDown() {
+        return pool.isShutdown();
+    }
+
+    public boolean isTerminated() {
+        return pool.isTerminated();
+    }
 }
