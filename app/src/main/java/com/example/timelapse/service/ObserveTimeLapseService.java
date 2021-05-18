@@ -12,8 +12,8 @@ import com.example.timelapse.db.database.AbstractDataBase;
 import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendar;
 import com.example.timelapse.object.WorkShift;
-import com.example.timelapse.rest.request.TimeShiftRequestGet;
-import com.example.timelapse.rest.request.WorkCalendarRequestGet;
+import com.example.timelapse.rest.get.TimeShiftRequestGet;
+import com.example.timelapse.rest.get.WorkCalendarRequestGet;
 
 public class ObserveTimeLapseService extends JobIntentService {
     public static int JOB_ID = 1000;
@@ -46,4 +46,6 @@ public class ObserveTimeLapseService extends JobIntentService {
             }
         }
     }
+
+
 }
