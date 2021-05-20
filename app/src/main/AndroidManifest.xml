@@ -20,7 +20,7 @@
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
         <receiver
-            android:name=".service.ObserveBroadcastRec"
+            android:name=".service.ObserveBroadcastReceiver"
             android:enabled="true"
             android:exported="false" />
 

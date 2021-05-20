@@ -16,7 +16,7 @@ import com.example.timelapse.object.DayType;
 import com.example.timelapse.object.WorkCalendarWithShift;
 import com.example.timelapse.object.WorkShift;
 import com.example.timelapse.presenter.TimeShiftMainPresenter;
-import com.example.timelapse.service.ObserveBroadcastRec;
+import com.example.timelapse.service.ObserveBroadcastReceiver;
 import com.example.timelapse.service.ObserveTimeLapseService;
 import com.example.timelapse.system.util.DateUtils;
 import com.example.timelapse.view.TimeShiftMainView;
@@ -105,7 +105,7 @@ public class TimeShiftMainActivity extends AppCompatActivity implements TimeShif
 
     private void registerObserverService() {
         Intent intentObserveService = new Intent(this, ObserveTimeLapseService.class);
-        ObserveBroadcastRec broadcastRec = new ObserveBroadcastRec() {
+        ObserveBroadcastReceiver broadcastRec = new ObserveBroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 presenter.fillElements(getIntent());

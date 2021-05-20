@@ -130,6 +130,34 @@ public class DateUtils {
         return ret.toString();
     }
 
+    public static final String dateWithTimeToDisplayString(Date dt) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(dt);
+        StringBuilder ret = new StringBuilder();
+        String separator = " ";
+
+        ret.append(cal.get(Calendar.DATE));
+        ret.append(separator);
+        ret.append(getMonthFromNumber(cal.get(Calendar.MONTH)));
+        ret.append(separator);
+        ret.append(cal.get(Calendar.YEAR));
+        ret.append(separator);
+        ret.append(toValidDoubleCharsDate(cal.get(Calendar.HOUR_OF_DAY)));
+        ret.append(":");
+        ret.append(toValidDoubleCharsDate(cal.get(Calendar.MINUTE)));
+
+        return ret.toString();
+    }
+
+    private static String toValidDoubleCharsDate(int value) {
+        String s = "";
+        boolean isValid = String.valueOf(value).length() == 2;
+        if (!isValid)
+            s += "0" + value;
+        else s += value;
+        return s;
+    }
+
     public static final String getTimeFromDate(Date dt) {
         Calendar cal = new GregorianCalendar();
         cal.setTime(dt);

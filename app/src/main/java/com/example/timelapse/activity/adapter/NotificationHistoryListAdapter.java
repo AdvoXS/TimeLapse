@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timelapse.R;
 import com.example.timelapse.object.NotificationHistory;
+import com.example.timelapse.system.util.DateUtils;
 
 import java.util.List;
 
@@ -26,14 +27,14 @@ public class NotificationHistoryListAdapter extends RecyclerView.Adapter<Notific
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.notification_history_list, parent, false);
+        View view = inflater.inflate(R.layout.notification_history_list_view, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NotificationHistory notificationHistory = notifications.get(position);
-        holder.dateView.setText(notificationHistory.getDate().toString());
+        holder.dateView.setText(DateUtils.dateWithTimeToDisplayString(notificationHistory.getDate()));
         holder.shortDescriptionView.setText(notificationHistory.getShortDescription());
     }
 

@@ -25,6 +25,10 @@ public interface WorkCalendarDao {
     @Query("SELECT * FROM WorkCalendar WHERE date =:date")
     WorkCalendar getFromDate(Date date);
 
+    @Query("SELECT * FROM WorkCalendar WHERE id =:id")
+    WorkCalendar getById(long id);
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WorkCalendar workCalendar);
 

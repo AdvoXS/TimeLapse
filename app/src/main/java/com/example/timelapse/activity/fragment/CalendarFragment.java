@@ -21,7 +21,7 @@ import com.example.timelapse.R;
 import com.example.timelapse.db.database.AbstractDataBase;
 import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendarWithShift;
-import com.example.timelapse.service.ObserveBroadcastRec;
+import com.example.timelapse.service.ObserveBroadcastReceiver;
 import com.example.timelapse.service.ObserveTimeLapseService;
 import com.example.timelapse.system.impl.calendar.CalendarViewImpl;
 import com.example.timelapse.system.util.thread.AsyncCallObject;
@@ -30,7 +30,7 @@ import com.kizitonwose.calendarview.CalendarView;
 import java.util.List;
 
 public class CalendarFragment extends Fragment {
-    public final static String BROADCAST_OBSERVE = "android.intent.action.MAIN";
+    public final static String BROADCAST_OBSERVE = "android.intent.action.CALENDAR";
     private CalendarViewImpl calendarView1 = null;
     private AbstractDataBase db = null;
     private NotificationManagerCompat notificationManager;
@@ -61,11 +61,13 @@ public class CalendarFragment extends Fragment {
 
     private void registerObserverService() {
         Intent intentObserveService = new Intent(getActivity(), ObserveTimeLapseService.class);
-        ObserveBroadcastRec broadcastRec = new ObserveBroadcastRec() {
+        ObserveBroadcastReceiver broadcastRec = new ObserveBroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 updateCalendar(db, calendarView1);
                 notificationManager.notify(3000, getObserveNotification().build());
+                Intent broadIntent = new Intent(NotificationFragment.BROADCAST_OBSERVE);
+                getActivity().sendBroadcast(broadIntent);
             }
         };
         IntentFilter intFilt = new IntentFilter(BROADCAST_OBSERVE);
@@ -102,7 +104,7 @@ public class CalendarFragment extends Fragment {
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
     }
 
-    private void updateCalendar(AbstractDataBase db, CalendarViewImpl calendarView1) {
+    public void updateCalendar(AbstractDataBase db, CalendarViewImpl calendarView1) {
         new AsyncCallObject<List<WorkCalendarWithShift>>() {
             @Override
             protected List<WorkCalendarWithShift> run() {
