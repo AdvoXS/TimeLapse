@@ -15,11 +15,10 @@
         android:theme="@style/Theme.TimeLapse"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.NotificationHistoryActivity"></activity>
+        <activity android:name=".activity.NotificationHistoryActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
-
         <receiver
             android:name=".service.ObserveBroadcastRec"
             android:enabled="true"

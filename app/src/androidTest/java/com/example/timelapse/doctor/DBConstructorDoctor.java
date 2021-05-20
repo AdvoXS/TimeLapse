@@ -11,6 +11,7 @@ import com.example.timelapse.system.impl.calendar.DayCalendarBinder;
 import com.example.timelapse.system.util.thread.AsyncCallVoid;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,11 +19,13 @@ import static org.junit.Assert.assertEquals;
 public class DBConstructorDoctor {
     Context appContext;
 
+    @Ignore
     @Before
     public void init() {
         appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
     }
 
+    @Ignore
     @Test
     public void create() {
         AbstractDataBase db = DBHelper.getDB(appContext, DBHelper.LOCAL_BASE);
@@ -51,6 +54,7 @@ public class DBConstructorDoctor {
         }
     }
 
+    @Ignore
     @Test
     public void deleteAllAppSettings() {
         AbstractDataBase db = DBHelper.getDB(appContext, DBHelper.LOCAL_BASE);

@@ -7,7 +7,7 @@ import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
-import com.example.timelapse.activity.MainActivity;
+import com.example.timelapse.activity.fragment.CalendarFragment;
 import com.example.timelapse.db.database.AbstractDataBase;
 import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendar;
@@ -40,7 +40,7 @@ public class ObserveTimeLapseService extends JobIntentService {
                 }
                 workShifts = null;
                 workCalendars = null;
-                Intent broadIntent = new Intent(MainActivity.BROADCAST_OBSERVE);
+                Intent broadIntent = new Intent(CalendarFragment.BROADCAST_OBSERVE);
                 sendBroadcast(broadIntent);
                 SystemClock.sleep(1000000);
             }
