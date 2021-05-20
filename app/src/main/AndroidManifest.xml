@@ -15,13 +15,16 @@
         android:theme="@style/Theme.TimeLapse"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".activity.NotificationHistoryActivity"></activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
+
         <receiver
             android:name=".service.ObserveBroadcastRec"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+
         <service
             android:name=".service.ObserveTimeLapseService"
             android:exported="false"
@@ -30,6 +33,7 @@
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
