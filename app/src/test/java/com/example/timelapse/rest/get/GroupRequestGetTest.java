@@ -1,6 +1,5 @@
 package com.example.timelapse.rest.get;
 
-import com.example.timelapse.object.template.Group;
 import com.google.gson.Gson;
 
 import org.junit.Assert;
