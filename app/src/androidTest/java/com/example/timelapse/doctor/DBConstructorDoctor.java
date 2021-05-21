@@ -1,6 +1,7 @@
 package com.example.timelapse.doctor;
 
 import android.content.Context;
+import android.os.SystemClock;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -47,16 +48,27 @@ public class DBConstructorDoctor {
                 return null;
             }
         }.execute();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        SystemClock.sleep(7000);
     }
 
     @Ignore
     @Test
-    public void deleteAllAppSettings() {
+    public void deleteAllNotifications() throws InterruptedException {
+        AbstractDataBase db = DBHelper.getDB(appContext, DBHelper.LOCAL_BASE);
+        new AsyncCallVoid() {
+            @Override
+            protected Void run() {
+                db.notificationHistoryDao().deleteAll();
+                return null;
+            }
+        }.execute();
+        SystemClock.sleep(7000);
+        assertEquals("com.example.timelapse", appContext.getPackageName());
+    }
+
+    @Ignore
+    @Test
+    public void deleteAllAppSettings() throws InterruptedException {
         AbstractDataBase db = DBHelper.getDB(appContext, DBHelper.LOCAL_BASE);
         new AsyncCallVoid() {
             @Override
@@ -65,11 +77,7 @@ public class DBConstructorDoctor {
                 return null;
             }
         }.execute();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        SystemClock.sleep(7000);
         assertEquals("com.example.timelapse", appContext.getPackageName());
     }
 }

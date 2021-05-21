@@ -16,6 +16,7 @@ import com.example.timelapse.object.WorkCalendar;
 import com.example.timelapse.object.WorkShift;
 import com.example.timelapse.rest.get.TimeShiftRequestGet;
 import com.example.timelapse.rest.get.WorkCalendarRequestGet;
+import com.example.timelapse.system.util.DateUtils;
 
 import java.util.Date;
 
@@ -58,16 +59,19 @@ public class ObserveTimeLapseService extends JobIntentService {
     private void createNotificationDefault(WorkShift[] workShifts) {
         NotificationHistory notificationHistory = new NotificationHistory();
         notificationHistory.setDate(new Date());
-        notificationHistory.setShortDescription("Изменение рабочего графика");
-        StringBuilder builder = new StringBuilder();
+
+        StringBuilder descrBuilder = new StringBuilder();
+        StringBuilder shortDescrBuilder = new StringBuilder();
         for (WorkShift workShift : workShifts) {
             WorkCalendar calendar = db.workCalendarDao().getById(workShift.getCalendarId());
-            builder.append("Изменение смены на дату: ").append(calendar.getDate()).append(" Тип дня: ").append(workShift.getDayType().getAbout());
+            shortDescrBuilder.append(DateUtils.dateToDisplayString(calendar.getDate())).append(" ");
+            descrBuilder.append("Изменение смены на дату: ").append(calendar.getDate()).append(" Тип дня: ").append(workShift.getDayType().getAbout());
             if (workShift.getDayType() != null && workShift.getDayType().equals(DayType.WORK)) {
-                builder.append(" Начинается с ").append(workShift.getStartTime()).append(" По ").append(workShift.getEndTime()).append("\n");
+                descrBuilder.append(" Начинается с ").append(workShift.getStartTime()).append(" По ").append(workShift.getEndTime()).append("\n");
             }
         }
-        notificationHistory.setDescription(builder.toString());
+        notificationHistory.setShortDescription("Изменение рабочего графика на даты: " + shortDescrBuilder.toString());
+        notificationHistory.setDescription(descrBuilder.toString());
         db.notificationHistoryDao().insert(notificationHistory);
     }
 

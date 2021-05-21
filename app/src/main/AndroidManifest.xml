@@ -16,9 +16,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".activity.NotificationHistoryActivity" />
-        <activity
-            android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login" />
         <receiver
             android:name=".service.ObserveBroadcastReceiver"
             android:enabled="true"
