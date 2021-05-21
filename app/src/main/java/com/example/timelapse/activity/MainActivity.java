@@ -12,6 +12,7 @@ import com.example.timelapse.R;
 import com.example.timelapse.activity.adapter.MainViewPagerAdapter;
 import com.example.timelapse.activity.fragment.CalendarFragment;
 import com.example.timelapse.activity.fragment.NotificationFragment;
+import com.example.timelapse.activity.fragment.NotificationTimerDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
@@ -27,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //CreateDatabase.create(getApplicationContext(),true);
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         drawerResult = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -45,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     // Обработка клика
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        getSupportFragmentManager();
+                        if (position == 2) {
+                            NotificationTimerDialogFragment dialogNotificationSettings = new NotificationTimerDialogFragment();
+                            dialogNotificationSettings.show(getSupportFragmentManager(), "notification_settings");
+                        }
                     }
                 })
                 .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {

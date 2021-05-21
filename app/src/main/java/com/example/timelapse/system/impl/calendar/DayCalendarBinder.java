@@ -11,6 +11,7 @@ import com.example.timelapse.db.database.AbstractDataBase;
 import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendarWithShift;
 import com.example.timelapse.object.settings.AppSettings;
+import com.example.timelapse.system.setting.DbAppSettings;
 import com.example.timelapse.system.util.thread.AsyncCallObject;
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.DayOwner;
@@ -62,9 +63,10 @@ public class DayCalendarBinder extends ContextWrapper {
 
             @Override
             protected AppSettings run() {
-                if (workCalendarWithShift.getWorkShift() != null)
-                    return db.appSettingsDao().getByName("BACK_COLOR_DAY_" + workCalendarWithShift.getWorkShift().getDayType().name());
-                else return null;
+                if (workCalendarWithShift.getWorkShift() != null) {
+                    AppSettings appSettings = db.appSettingsDao().getByName(DbAppSettings.PREFIX_DAY_COLOR_BACKGROUND.getSettingName() + workCalendarWithShift.getWorkShift().getDayType().name());
+                    return appSettings;
+                } else return null;
             }
 
             @Override

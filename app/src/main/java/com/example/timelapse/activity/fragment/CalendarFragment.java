@@ -21,6 +21,7 @@ import com.example.timelapse.R;
 import com.example.timelapse.db.database.AbstractDataBase;
 import com.example.timelapse.db.database.DBHelper;
 import com.example.timelapse.object.WorkCalendarWithShift;
+import com.example.timelapse.object.settings.AppSettings;
 import com.example.timelapse.service.ObserveBroadcastReceiver;
 import com.example.timelapse.service.ObserveTimeLapseService;
 import com.example.timelapse.system.impl.calendar.CalendarViewImpl;
@@ -47,6 +48,18 @@ public class CalendarFragment extends Fragment {
         CalendarView calendarView = view.findViewById(R.id.calenar_view_fragment);
         calendarView1 = new CalendarViewImpl(getActivity(), calendarView);
         db = DBHelper.getDB(getContext(), DBHelper.LOCAL_BASE);
+        new AsyncCallObject<List<AppSettings>>() {
+
+            @Override
+            protected List<AppSettings> run() {
+                return db.appSettingsDao().getAll();
+            }
+
+            @Override
+            protected void postExecute(List<AppSettings> object) {
+                super.postExecute(object);
+            }
+        }.execute();
         registerObserverService();
         registerNotificationChannel();
         updateCalendar(db, calendarView1);

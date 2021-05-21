@@ -53,6 +53,21 @@ public class DBConstructorDoctor {
 
     @Ignore
     @Test
+    public void createSetting() {
+        AbstractDataBase db = DBHelper.getDB(appContext, DBHelper.LOCAL_BASE);
+        new AsyncCallVoid() {
+            @Override
+            protected Void run() {
+                AppSettings setting = new AppSettings("TIMER_OBSERVE_CALENDAR", "1000000");
+                db.appSettingsDao().insert(setting);
+                return null;
+            }
+        }.execute();
+        SystemClock.sleep(7000);
+    }
+
+    @Ignore
+    @Test
     public void deleteAllNotifications() throws InterruptedException {
         AbstractDataBase db = DBHelper.getDB(appContext, DBHelper.LOCAL_BASE);
         new AsyncCallVoid() {

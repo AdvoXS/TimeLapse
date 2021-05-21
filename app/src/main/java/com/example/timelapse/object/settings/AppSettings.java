@@ -1,38 +1,28 @@
 package com.example.timelapse.object.settings;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class AppSettings {
-    @PrimaryKey(autoGenerate = true)
-    private long id;
-
-    public AppSettings() {
-    }
-
-    public AppSettings(String settingName, String settingValue) {
-        this.settingName = settingName;
-        this.settingValue = settingValue;
-    }
-
+    @PrimaryKey
+    @NonNull
     private String settingName;
 
     private String settingValue;
 
-    public long getId() {
-        return id;
+    public AppSettings(@NonNull String settingName, String settingValue) {
+        this.settingName = settingName;
+        this.settingValue = settingValue;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
+    @NonNull
     public String getSettingName() {
         return settingName;
     }
 
-    public void setSettingName(String settingName) {
+    public void setSettingName(@NonNull String settingName) {
         this.settingName = settingName;
     }
 

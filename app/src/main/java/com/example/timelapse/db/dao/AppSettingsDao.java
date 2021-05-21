@@ -12,6 +12,8 @@ import com.example.timelapse.object.settings.AppSettings;
 
 import java.util.List;
 
+import kotlin.jvm.JvmSuppressWildcards;
+
 @Dao
 public interface AppSettingsDao {
     @Query("SELECT * FROM AppSettings")
@@ -22,6 +24,10 @@ public interface AppSettingsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(AppSettings appSettings);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @JvmSuppressWildcards
+    void insert(List<AppSettings> appSettings);
 
     @Delete
     void delete(AppSettings appSettings);

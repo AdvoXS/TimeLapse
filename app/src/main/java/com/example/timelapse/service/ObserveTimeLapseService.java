@@ -14,8 +14,10 @@ import com.example.timelapse.object.DayType;
 import com.example.timelapse.object.NotificationHistory;
 import com.example.timelapse.object.WorkCalendar;
 import com.example.timelapse.object.WorkShift;
+import com.example.timelapse.object.settings.AppSettings;
 import com.example.timelapse.rest.get.TimeShiftRequestGet;
 import com.example.timelapse.rest.get.WorkCalendarRequestGet;
+import com.example.timelapse.system.setting.DbAppSettings;
 import com.example.timelapse.system.util.DateUtils;
 
 import java.util.Date;
@@ -32,6 +34,7 @@ public class ObserveTimeLapseService extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
         synchronized (lock) {
             db = DBHelper.getDB(getApplicationContext(), DBHelper.LOCAL_BASE);
+            AppSettings timerSetting = db.appSettingsDao().getByName(DbAppSettings.TIMER_OBSERVE_CALENDAR.getSettingName());
             WorkShift[] workShifts;
             WorkCalendar[] workCalendars;
             while (true) {
@@ -51,7 +54,7 @@ public class ObserveTimeLapseService extends JobIntentService {
                 workCalendars = null;
                 Intent broadIntent = new Intent(CalendarFragment.BROADCAST_OBSERVE);
                 sendBroadcast(broadIntent);
-                SystemClock.sleep(1000000);
+                SystemClock.sleep(Long.parseLong(timerSetting.getSettingValue()));
             }
         }
     }
