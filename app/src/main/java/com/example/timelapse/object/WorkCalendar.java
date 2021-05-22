@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Entity
 public class WorkCalendar {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private Long id;
     @ColumnInfo
     private Date date;

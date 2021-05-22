@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 public class WorkShift {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private Long id;
     @ColumnInfo
     private Date startTime;

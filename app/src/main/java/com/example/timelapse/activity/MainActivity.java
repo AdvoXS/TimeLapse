@@ -28,10 +28,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //CreateDatabase.create(getApplicationContext(),true);
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        createMenu(toolbar);
+
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void createMenu(Toolbar toolbar) {
         drawerResult = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -62,35 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .build();
-        /*new Drawer()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withActionBarDrawerToggle(true)
-                .withHeader(R.layout.header_navigation_menu)
-                .addDrawerItems(
-                        *//*new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withBadge("6").withIdentifier(2),*//*
-                        new SectionDrawerItem().withName(R.string.drawer_item_settings),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_notification).withIcon(FontAwesome.Icon.faw_book),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_calendar).withIcon(FontAwesome.Icon.faw_calendar)
-                        *//*new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_github).withBadge("12+").withIdentifier(1)*//*
-                )
-                .build();*/
-
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 
     private void setupViewPager(ViewPager viewPager) {
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
